@@ -16,6 +16,7 @@ services:
     container_name: dsr-Register-backend
     volumes:
       - ./Backend:/app/Backend
+    command: /app/Backend/server.js
     ports:
       - 3000:3000
     networks:
