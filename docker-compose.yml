@@ -22,5 +22,5 @@ services:
       - dsr-Register-networks
 
 networks:
-  mynetwork:
+  dsr-Register-networks:
     driver: bridge
