@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://czp.dga.or.th/cportal/sdk/css/v1/trunks.min.css"/>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">    
+<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Round" rel="stylesheet">
+<style>
+  body {
+    font-family: "Prompt", sans-serif;
+    margin: 40px auto;
+    max-width: 600px;
+  }
+  select, input {
+    width: 100%;
+    margin: 8px 0;
+    padding: 8px;
+    font-size: 16px;
+  }
+</style>
+</head>
+<body class="container">
+  <div className="border rounded-3" >
+                <div className="fs-2 rounded-top" >
+                    <div 
+                    className="d-flex align-items-center flex-grow-1 text-wrap">
+                        <Navbar />
+                        <a href="/regshow" target="_self" className='fs-3 ms-3' ></a><br />
+                    </div>
+                </div>
+            </div>
+  <section class="section">
+    <div>ยืนยันตัวตนเพื่อเข้าร่วมโครงการ Digital Skill Roadmap</div> <br>
+    <fieldset disabled>
+      <div class="field">
+        <label class="label">IDCARD*</label>
+        <div class="control">
+          <input id="idcard" class="input" type="text" placeholder="1103703753822">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">ชื่อ (First name)*</label>
+        <div class="control">
+          <input id="name" class="input" type="text" placeholder="สมชาย">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">นามสกุล (Last name)*</label>
+        <div class="control">
+          <input id="surname" class="input" type="text" placeholder="สมชาย">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">อีเมล*</label>
+        <div class="control">
+          <input id="email" class="input" type="email" placeholder="e.g. alexsmith@gmail.com">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">เบอร์โทร*</label>
+        <div class="control">
+          <input id="Numphone" class="input" type="text" placeholder="08x-xxx-xxxx">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">วันเดือนปีเกิด*</label>
+        <div class="control">
+          <input id="Birth" class="input" type="text" placeholder="20xx-xx-xx">
+        </div>
+      </div>
+    </fieldset>
+
+    <div style="margin-top: 20px;">
+      <button id="submitBtn" class="button is-primary">ส่งแบบฟอร์ม</button>
+    </div>
+  </section>
+
+  <script>
+    // ดึงข้อมูลจาก mock API
+    fetch('https://mocki.io/v1/20ecb20d-6232-4f21-b244-2909e7ea6272')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('idcard').value = data.idcard || '';
+        document.getElementById('name').value = data.name || '';
+        document.getElementById('surname').value = data.surname || '';
+        document.getElementById('email').value = data.email || '';
+        document.getElementById('Numphone').value = data.Numphone || '';
+        document.getElementById('Birth').value = data.Birth || '';
+      })
+      .catch(err => console.error('Error:', err));
+
+    // ปุ่มบันทึกข้อมูล
+    document.getElementById("submitBtn").addEventListener("click", async () => {
+      const payload = {
+        idcard: document.getElementById("idcard").value,
+        name: document.getElementById("name").value,
+        surname: document.getElementById("surname").value,
+        email: document.getElementById("email").value,
+        Numphone: document.getElementById("Numphone").value,
+        Birth: document.getElementById("Birth").value,
+      };
+
+      console.log("ข้อมูลที่เตรียมส่ง:", payload);
+
+      try {
+        // ตัวอย่างส่งข้อมูลไปยัง backend (เปลี่ยน URL ตามจริง)
+        const response = await fetch("http://localhost:3001/save", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) throw new Error("ส่งข้อมูลไม่สำเร็จ");
+
+        alert("บันทึกข้อมูลสำเร็จ!");
+      } catch (error) {
+        console.error("Error:", error);
+        alert("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+      }
+    });
+  </script>
+</body>
+</html>
