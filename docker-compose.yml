@@ -14,9 +14,10 @@ services:
   backend:
     image: node:18-alpine
     container_name: dsr-Register-backend
+
     volumes:
       - ./Backend:/app/Backend
-    command: /app/Backend/server.js
+    command: node /app/Backend/server.js
     ports:
       - 3000:3000
     networks:
