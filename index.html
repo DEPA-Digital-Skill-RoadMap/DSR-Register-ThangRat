@@ -173,6 +173,7 @@
         BaseURL = data.IsMaintanence === false ? "/api" : "http://localhost:3000/api";
         console.log("Maintenance:", data.IsMaintanence);
         console.log("BaseURL:", BaseURL);
+        loadGroups();
       })
       .catch(err => console.error('Error:', err));
 
@@ -230,8 +231,6 @@
       const data = await res.json();
       otherdoc.textContent = (data.length > 0 && data[0].otherdoc) ? data[0].otherdoc : "ไม่มีข้อมูล otherdoc";
     });
-
-    loadGroups();
 
     // Submit Handler
     document.getElementById("submitBtn").addEventListener("click", async () => {
