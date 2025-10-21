@@ -5,6 +5,7 @@ services:
     volumes:
       - ./index.html:/usr/share/nginx/html/index.html
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./image:/usr/share/nginx/html/image
     ports:
       - 4200:80
     networks:
