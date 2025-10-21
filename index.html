@@ -1,120 +1,132 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://czp.dga.or.th/cportal/sdk/css/v1/trunks.min.css"/>
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">    
-<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Round" rel="stylesheet">
-<link rel="stylesheet" href="./index.css">
-<style>
-    body { font-family: "Segoe UI", sans-serif;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>สมัครโครงการ Digital Skill Roadmap</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://czp.dga.or.th/cportal/sdk/css/v1/trunks.min.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Round" rel="stylesheet">
+  <link rel="stylesheet" href="./index.css">
+
+  <style>
+    body { font-family: "Segoe UI", sans-serif; }
     select { width: 100%; margin: 8px 0; padding: 8px; }
-</style>
+    .hidden { display: none; }
+  </style>
 </head>
+
 <body>
+  <!-- Header -->
   <div class="topnav">
-    <img src="./image/Logo_Digital_Skill_Roadmap_288x288px_BG-removebg-preview.png" alt="dsr" style="width:128px;height:128px;">
+    <img src="./image/Logo_Digital_Skill_Roadmap_288x288px_BG-removebg-preview.png" alt="dsr" width="128" height="128">
   </div>
+
+  <!-- Main Form -->
   <div class="box">
-  <section class="section">
-    <p1 style="font-size: large; font-weight: bold;">ยืนยันตัวตนเพื่อสมัครเข้าร่วมโครงการ Digital Skill Roadmap</p1> <br><br>
-    <fieldset disabled>
-      <div class="field">
+    <section class="section">
+      <p style="font-size: large; font-weight: bold;">
+        ยืนยันตัวตนเพื่อสมัครเข้าร่วมโครงการ Digital Skill Roadmap
+      </p>
+      <br><br>
+
+      <!-- Personal Info -->
+      <fieldset disabled>
+        <div class="field">
           <label class="label">IDCARD</label>
-          <div class="control">
-              <input id="idcard" class="input" type="text" placeholder="1103703753822">
-          </div>
-      </div>
-      <div class="field">
-          <label class="label">ชื่อ(First name)</label>
-          <div class="control">
-              <input id="name" class="input" type="text" placeholder="สมชาย">
-          </div>
-      </div>
-      <div class="field">
-          <label class="label">นามสกุล(Last name)</label>
-          <div class="control">
-              <input id="surname" class="input" type="text" placeholder="สมชาย">
-          </div>
-      </div>
-      <div class="field">
+          <input id="idcard" class="input" type="text" placeholder="1103703753822">
+        </div>
+
+        <div class="field">
+          <label class="label">ชื่อ (First name)</label>
+          <input id="name" class="input" type="text" placeholder="สมชาย">
+        </div>
+
+        <div class="field">
+          <label class="label">นามสกุล (Last name)</label>
+          <input id="surname" class="input" type="text" placeholder="สมชาย">
+        </div>
+
+        <div class="field">
           <label class="label">อีเมล</label>
-          <div class="control">
-              <input id="email" class="input" type="email" placeholder="e.g. alexsmith@gmail.com">
-          </div>
-      </div>
-      <div class="field">
+          <input id="email" class="input" type="email" placeholder="e.g. alexsmith@gmail.com">
+        </div>
+
+        <div class="field">
           <label class="label">เบอร์โทร</label>
-          <div class="control">
-              <input id="Numphone" class="input" type="text" placeholder="08x-xxx-xxxx">
-          </div>
-      </div>
-      <div class="field">
+          <input id="Numphone" class="input" type="text" placeholder="08x-xxx-xxxx">
+        </div>
+
+        <div class="field">
           <label class="label">วันเดือนปีเกิด</label>
-          <div class="control">
-              <input id="Birth" class="input" type="text" placeholder="20xx-xx-xx">
-          </div>
+          <input id="Birth" class="input" type="text" placeholder="20xx-xx-xx">
+        </div>
+      </fieldset>
+
+      <br>
+
+      <!-- Course Selections -->
+      <div>
+        <label>กลุ่ม</label>
+        <select id="group"></select>
       </div>
-    </fieldset>
 
-    <br>
-      
-
-    <div>
-      <label>กลุ่ม</label>
-      <select id="group"></select>
-    </div>
-
-    <div>
-      <label>กลุ่มย่อย</label>
-      <select id="semigroup"></select>
-    </div>
-
-    <div>
-      <label>ระดับหลักสูตร</label>
-      <select id="level"></select>
-    </div>
-
-    <div>
-      <label>กลุ่มหลักสูตร</label>
-      <select id="coursegroup"></select>
-    </div>
-
-    <div>
-      <label>หลักสูตร</label>
-      <select id="course"></select>
-    </div>
-
-    <div class="box">
-      <div>วิธีการนำลิงก์สำเนาบัตรประชาชนและเอกสารเพิ่มเติมจาก Google Drive </div>
-      <img src="./image/97e34777-4abd-4bb6-8be6-a42dc9a0d42a.png" alt="How to get link">
-      <br>*ดูวิธีการอัปโหลดไฟล์แบบละเอียดได้ที่ลิงก์ด้านใต้ 
-      <br> <a href="https://short.depa.or.th/a2Hqv">Click Here</a>
-    </div>
-
-    <div class="field">
-          <label class="label">ลิงก์สำเนาบัตรประชาชน (ลิงก์ของ Google drive)</label>
-          <div class="control">
-              <input id="IDCardlink" class="input" type="text" placeholder="drive">
-          </div>
+      <div>
+        <label>กลุ่มย่อย</label>
+        <select id="semigroup"></select>
       </div>
-    <div class="box">
-      <p class="otherdoc">โปรดเลือกหลักสูตร...</p>
-    </div>
-    <div class="field">
-          <label class="label">ลิงก์เอกสารเพิ่มเติม (ลิงก์ของ Google drive)</label>
-    <div class="control">
-          <input id="Otherdoclink" class="input" type="text" placeholder="drive">
-    </div>
 
-    <div style="margin-top: 20px;">
-      <button id="submitBtn" class="button is-primary">บันทึกข้อมูล</button>
-    </div>
+      <div>
+        <label>ระดับหลักสูตร</label>
+        <select id="level"></select>
+      </div>
+
+      <div>
+        <label>กลุ่มหลักสูตร</label>
+        <select id="coursegroup"></select>
+      </div>
+
+      <div>
+        <label>หลักสูตร</label>
+        <select id="course"></select>
+      </div>
+
+      <!-- Upload Instructions -->
+      <div class="box">
+        <div>วิธีการนำลิงก์สำเนาบัตรประชาชนและเอกสารเพิ่มเติมจาก Google Drive</div>
+        <img src="./image/97e34777-4abd-4bb6-8be6-a42dc9a0d42a.png" alt="How to get link">
+        <p>
+          *ดูวิธีการอัปโหลดไฟล์แบบละเอียดได้ที่ลิงก์ด้านใต้<br>
+          <a href="https://short.depa.or.th/a2Hqv" target="_blank">Click Here</a>
+        </p>
+      </div>
+
+      <!-- Upload Fields -->
+      <div class="field">
+        <label class="label">ลิงก์สำเนาบัตรประชาชน (Google Drive)</label>
+        <input id="IDCardlink" class="input" type="text" placeholder="drive link">
+      </div>
+
+      <div class="box">
+        <p class="otherdoc">โปรดเลือกหลักสูตร...</p>
+      </div>
+
+      <div class="field">
+        <label class="label">ลิงก์เอกสารเพิ่มเติม (Google Drive)</label>
+        <input id="Otherdoclink" class="input" type="text" placeholder="drive link">
+      </div>
+
+      <!-- Submit -->
+      <div style="margin-top: 20px;">
+        <button id="submitBtn" class="button is-primary">บันทึกข้อมูล</button>
+      </div>
+    </section>
   </div>
-  </div>
-  
+
+  <!-- Loading Page -->
   <div id="loadingPage" class="hidden">
     <div class="screen-center">
       <div class="screen-loader">
@@ -124,22 +136,24 @@
     </div>
   </div>
 
+  <!-- Success Page -->
   <div id="successPage" class="hidden">
     <div class="screen-center">
-      โครงการได้รับใบสมัครของท่านแล้ว <br>
+      โครงการได้รับใบสมัครของท่านแล้ว<br>
       โปรดตรวจสอบข้อความใหม่ในอีเมล<br>
-      หากท่านยังไม่ได้รับอีเมลโปรดตรวจสอบใน Junk Mail ของท่าน หรือหากภายใน 30 นาทีท่านยังไม่ได้รับอีเมลให้รบกวนดำเนินการสมัครใหม่อีกครั้งค่ะ/ครับ
-      <br>
-      ติดตามข้อมูลข่าวสารของโครงการได้ที่ https://www.facebook.com/depathai
+      หากยังไม่ได้รับ โปรดตรวจสอบใน Junk Mail หรือสมัครใหม่ภายใน 30 นาที<br>
+      ติดตามข้อมูลข่าวสารได้ที่
+      <a href="https://www.facebook.com/depathai" target="_blank">Facebook DEPATHAI</a>
       <br><br>
       <button id="backBtn">กลับหน้าแรก</button>
     </div>
   </div>
 
-  </section>
-
+  <!-- Script -->
   <script>
-    let BaseURL = "http://localhost:3000/api"
+    let BaseURL = "http://localhost:3000/api";
+
+    // Load mock personal data
     fetch('https://mocki.io/v1/20ecb20d-6232-4f21-b244-2909e7ea6272')
       .then(res => res.json())
       .then(data => {
@@ -152,21 +166,25 @@
       })
       .catch(err => console.error('Error:', err));
 
+    // Load BaseURL config
     fetch("./IPCONFIG.json")
       .then(res => res.json())
       .then(data => {
-        BaseURL = data.IsMaintanence === false ? "/api" : "http://localhost:3000/api"
+        BaseURL = data.IsMaintanence === false ? "/api" : "http://localhost:3000/api";
         console.log("Maintenance:", data.IsMaintanence);
-        console.log("BasedUrls",BaseURL);
+        console.log("BaseURL:", BaseURL);
       })
       .catch(err => console.error('Error:', err));
 
+    // Dropdown Elements
     const groupSelect = document.getElementById("group");
     const semigroupSelect = document.getElementById("semigroup");
     const levelSelect = document.getElementById("level");
     const courseGroupSelect = document.getElementById("coursegroup");
     const courseSelect = document.getElementById("course");
+    const otherdoc = document.querySelector(".otherdoc");
 
+    // Load initial group list
     async function loadGroups() {
       const res = await fetch(`${BaseURL}/groups`);
       const data = await res.json();
@@ -174,6 +192,7 @@
       data.forEach(g => groupSelect.innerHTML += `<option value="${g.group}">${g.group}</option>`);
     }
 
+    // Dynamic dropdown handlers
     groupSelect.addEventListener("change", async () => {
       const group = groupSelect.value;
       const res = await fetch(`${BaseURL}/semigroups?group=${encodeURIComponent(group)}`);
@@ -184,9 +203,7 @@
     });
 
     semigroupSelect.addEventListener("change", async () => {
-      const group = groupSelect.value;
-      const semigroup = semigroupSelect.value;
-      const res = await fetch(`${BaseURL}/levels?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}`);
+      const res = await fetch(`${BaseURL}/levels?group=${groupSelect.value}&semigroup=${semigroupSelect.value}`);
       const data = await res.json();
       levelSelect.innerHTML = `<option value="">-- เลือก Level --</option>`;
       data.forEach(l => levelSelect.innerHTML += `<option value="${l.level}">${l.level}</option>`);
@@ -194,10 +211,7 @@
     });
 
     levelSelect.addEventListener("change", async () => {
-      const group = groupSelect.value;
-      const semigroup = semigroupSelect.value;
-      const level = levelSelect.value;
-      const res = await fetch(`${BaseURL}/coursegroups?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}`);
+      const res = await fetch(`${BaseURL}/coursegroups?group=${groupSelect.value}&semigroup=${semigroupSelect.value}&level=${levelSelect.value}`);
       const data = await res.json();
       courseGroupSelect.innerHTML = `<option value="">-- เลือกกลุ่มวิชา --</option>`;
       data.forEach(cg => courseGroupSelect.innerHTML += `<option value="${cg.coursegroup}">${cg.coursegroup}</option>`);
@@ -205,98 +219,78 @@
     });
 
     courseGroupSelect.addEventListener("change", async () => {
-      const group = groupSelect.value;
-      const semigroup = semigroupSelect.value;
-      const level = levelSelect.value;
-      const coursegroup = courseGroupSelect.value;
-      const res = await fetch(`${BaseURL}/courses?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}&coursegroup=${encodeURIComponent(coursegroup)}`);
+      const res = await fetch(`${BaseURL}/courses?group=${groupSelect.value}&semigroup=${semigroupSelect.value}&level=${levelSelect.value}&coursegroup=${courseGroupSelect.value}`);
       const data = await res.json();
       courseSelect.innerHTML = `<option value="">-- เลือกหลักสูตร --</option>`;
       data.forEach(c => courseSelect.innerHTML += `<option value="${c.courses}">${c.courses}</option>`);
     });
 
     courseSelect.addEventListener("change", async () => {
-    const group = groupSelect.value;
-    const semigroup = semigroupSelect.value;
-    const level = levelSelect.value;
-    const coursegroup = courseGroupSelect.value;
-    const courses = courseSelect.value;
-
-    if (!group || !semigroup || !level || !coursegroup || !courses) return;
-
-    const res = await fetch(
-      `${BaseURL}/otherdocs?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}&coursegroup=${encodeURIComponent(coursegroup)}&courses=${encodeURIComponent(courses)}`
-    );
-    const data = await res.json();
-
-    const otherdoc = document.querySelector(".otherdoc");
-    if (data.length > 0 && data[0].otherdoc) {
-      otherdoc.textContent = data[0].otherdoc;
-    } else {
-      otherdoc.textContent = "ไม่มีข้อมูล otherdoc";
-    }
-  });
-
-
-    loadGroups();
-document.getElementById("submitBtn").addEventListener("click", async () => {
-  const mainContent = document.querySelector(".box"); // ส่วนหลักทั้งหมด
-  const loadingPage = document.getElementById("loadingPage");
-  const successPage = document.getElementById("successPage");
-
-  const payload = {
-    idcard: document.getElementById("idcard").value,
-    name: document.getElementById("name").value,
-    surname: document.getElementById("surname").value,
-    email: document.getElementById("email").value,
-    Numphone: document.getElementById("Numphone").value,
-    Birth: document.getElementById("Birth").value,
-    IDCardlink: document.getElementById("IDCardlink").value,
-    Otherdoclink: document.getElementById("Otherdoclink").value,
-    group: groupSelect.value,
-    semigroup: semigroupSelect.value,
-    level: levelSelect.value,
-    coursegroup: courseGroupSelect.value,
-    course: courseSelect.value
-  };
-
-  if (!payload.group || !payload.level || !payload.course) {
-    alert("กรุณาเลือกข้อมูลให้ครบก่อนส่ง!");
-    return;
-  }
-
-  mainContent.style.display = "none";
-  loadingPage.classList.remove("hidden");
-
-  try {
-    const res = await fetch(`${BaseURL}/saveSelection`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      const res = await fetch(`${BaseURL}/otherdocs?group=${groupSelect.value}&semigroup=${semigroupSelect.value}&level=${levelSelect.value}&coursegroup=${courseGroupSelect.value}&courses=${courseSelect.value}`);
+      const data = await res.json();
+      otherdoc.textContent = (data.length > 0 && data[0].otherdoc) ? data[0].otherdoc : "ไม่มีข้อมูล otherdoc";
     });
 
-    const result = await res.json();
+    loadGroups();
 
-    loadingPage.classList.add("hidden");
+    // Submit Handler
+    document.getElementById("submitBtn").addEventListener("click", async () => {
+      const mainContent = document.querySelector(".box");
+      const loadingPage = document.getElementById("loadingPage");
+      const successPage = document.getElementById("successPage");
 
-    if (result.success) {
-      successPage.classList.remove("hidden");
-    } else {
-      alert("❌ เกิดข้อผิดพลาด: " + result.message);
-      mainContent.style.display = "block";
-    }
-  } catch (err) {
-    console.error(err);
-    alert("⚠️ ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้");
-    loadingPage.classList.add("hidden");
-    mainContent.style.display = "block";
-  }
-});
+      const payload = {
+        idcard: idcard.value,
+        name: name.value,
+        surname: surname.value,
+        email: email.value,
+        Numphone: Numphone.value,
+        Birth: Birth.value,
+        IDCardlink: IDCardlink.value,
+        Otherdoclink: Otherdoclink.value,
+        group: groupSelect.value,
+        semigroup: semigroupSelect.value,
+        level: levelSelect.value,
+        coursegroup: courseGroupSelect.value,
+        course: courseSelect.value
+      };
 
-document.getElementById("backBtn").addEventListener("click", () => {
-  document.getElementById("successPage").classList.add("hidden");
-  document.querySelector(".box").style.display = "block";
-});
+      if (!payload.group || !payload.level || !payload.course) {
+        alert("กรุณาเลือกข้อมูลให้ครบก่อนส่ง!");
+        return;
+      }
+
+      mainContent.style.display = "none";
+      loadingPage.classList.remove("hidden");
+
+      try {
+        const res = await fetch(`${BaseURL}/saveSelection`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const result = await res.json();
+
+        loadingPage.classList.add("hidden");
+
+        if (result.success) successPage.classList.remove("hidden");
+        else {
+          alert("❌ เกิดข้อผิดพลาด: " + result.message);
+          mainContent.style.display = "block";
+        }
+      } catch (err) {
+        console.error(err);
+        alert("⚠️ ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้");
+        loadingPage.classList.add("hidden");
+        mainContent.style.display = "block";
+      }
+    });
+
+    // Back to main
+    document.getElementById("backBtn").addEventListener("click", () => {
+      document.getElementById("successPage").classList.add("hidden");
+      document.querySelector(".box").style.display = "block";
+    });
   </script>
 </body>
 </html>
