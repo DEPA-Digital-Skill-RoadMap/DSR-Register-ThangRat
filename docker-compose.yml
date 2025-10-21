@@ -6,6 +6,7 @@ services:
       - ./index.html:/usr/share/nginx/html/index.html
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - ./image:/usr/share/nginx/html/image
+      - ./index.css:/usr/share/nginx/html/index.css
     ports:
       - 4200:80
     networks:
