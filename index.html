@@ -127,6 +127,7 @@
       .then(data => {
         BaseURL = data.IsMaintanence === false ? "/api" : "http://localhost:3000/api"
         console.log("Maintenance:", data.IsMaintanence);
+        console.log("BasedUrls",BaseURL);
       })
       .catch(err => console.error('Error:', err));
     
