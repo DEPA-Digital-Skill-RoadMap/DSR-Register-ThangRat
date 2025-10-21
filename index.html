@@ -128,7 +128,7 @@
     const courseSelect = document.getElementById("course");
 
     async function loadGroups() {
-      const res = await fetch("http://localhost:3000/api/groups");
+      const res = await fetch("/api/groups");
       const data = await res.json();
       groupSelect.innerHTML = `<option value="">-- เลือก Group --</option>`;
       data.forEach(g => groupSelect.innerHTML += `<option value="${g.group}">${g.group}</option>`);
@@ -136,7 +136,7 @@
 
     groupSelect.addEventListener("change", async () => {
       const group = groupSelect.value;
-      const res = await fetch(`http://localhost:3000/api/semigroups?group=${encodeURIComponent(group)}`);
+      const res = await fetch(`/api/semigroups?group=${encodeURIComponent(group)}`);
       const data = await res.json();
       semigroupSelect.innerHTML = `<option value="">-- เลือก Semigroup --</option>`;
       data.forEach(s => semigroupSelect.innerHTML += `<option value="${s.semigroup}">${s.semigroup}</option>`);
@@ -146,7 +146,7 @@
     semigroupSelect.addEventListener("change", async () => {
       const group = groupSelect.value;
       const semigroup = semigroupSelect.value;
-      const res = await fetch(`http://localhost:3000/api/levels?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}`);
+      const res = await fetch(`/api/levels?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}`);
       const data = await res.json();
       levelSelect.innerHTML = `<option value="">-- เลือก Level --</option>`;
       data.forEach(l => levelSelect.innerHTML += `<option value="${l.level}">${l.level}</option>`);
@@ -157,7 +157,7 @@
       const group = groupSelect.value;
       const semigroup = semigroupSelect.value;
       const level = levelSelect.value;
-      const res = await fetch(`http://localhost:3000/api/coursegroups?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}`);
+      const res = await fetch(`/api/coursegroups?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}`);
       const data = await res.json();
       courseGroupSelect.innerHTML = `<option value="">-- เลือกกลุ่มวิชา --</option>`;
       data.forEach(cg => courseGroupSelect.innerHTML += `<option value="${cg.coursegroup}">${cg.coursegroup}</option>`);
@@ -169,7 +169,7 @@
       const semigroup = semigroupSelect.value;
       const level = levelSelect.value;
       const coursegroup = courseGroupSelect.value;
-      const res = await fetch(`http://localhost:3000/api/courses?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}&coursegroup=${encodeURIComponent(coursegroup)}`);
+      const res = await fetch(`/api/courses?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}&coursegroup=${encodeURIComponent(coursegroup)}`);
       const data = await res.json();
       courseSelect.innerHTML = `<option value="">-- เลือกหลักสูตร --</option>`;
       data.forEach(c => courseSelect.innerHTML += `<option value="${c.courses}">${c.courses}</option>`);
@@ -185,7 +185,7 @@
     if (!group || !semigroup || !level || !coursegroup || !courses) return;
 
     const res = await fetch(
-      `http://localhost:3000/api/otherdocs?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}&coursegroup=${encodeURIComponent(coursegroup)}&courses=${encodeURIComponent(courses)}`
+      `/api/otherdocs?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}&coursegroup=${encodeURIComponent(coursegroup)}&courses=${encodeURIComponent(courses)}`
     );
     const data = await res.json();
 
@@ -222,7 +222,7 @@
       }
 
       try {
-        const res = await fetch("http://localhost:3000/api/saveSelection", {
+        const res = await fetch("/api/saveSelection", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
