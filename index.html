@@ -115,7 +115,6 @@
   </div>
   </div>
   
-    <!-- หน้ารอโหลด -->
   <div id="loadingPage" class="hidden">
     <div class="screen-center">
       <div class="screen-loader">
@@ -125,7 +124,6 @@
     </div>
   </div>
 
-  <!-- หน้าหลังส่งเสร็จ -->
   <div id="successPage" class="hidden">
     <div class="screen-center">
       โครงการได้รับใบสมัครของท่านแล้ว <br>
@@ -257,7 +255,6 @@ document.getElementById("submitBtn").addEventListener("click", async () => {
     return;
   }
 
-  // ✅ แสดงหน้ารอโหลด
   mainContent.style.display = "none";
   loadingPage.classList.remove("hidden");
 
@@ -270,11 +267,9 @@ document.getElementById("submitBtn").addEventListener("click", async () => {
 
     const result = await res.json();
 
-    // ซ่อนหน้ารอโหลด
     loadingPage.classList.add("hidden");
 
     if (result.success) {
-      // ✅ แสดงหน้าสำเร็จ
       successPage.classList.remove("hidden");
     } else {
       alert("❌ เกิดข้อผิดพลาด: " + result.message);
@@ -289,7 +284,6 @@ document.getElementById("submitBtn").addEventListener("click", async () => {
 });
 
 document.getElementById("backBtn").addEventListener("click", () => {
-  // กลับมาหน้าแรก
   document.getElementById("successPage").classList.add("hidden");
   document.querySelector(".box").style.display = "block";
 });

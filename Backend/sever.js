@@ -10,7 +10,6 @@
   app.use(cors());
   app.use(express.json());
 
-  // ตั้งค่าการเชื่อมต่อฐานข้อมูล
   const db = await mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -20,7 +19,6 @@
   });
 
 
-  // ✅ API อื่น ๆ (เหมือนของคุณเดิม)
   app.get("/api/groups", async (req, res) => {
     const [rows] = await db.query("SELECT DISTINCT `group` FROM coursealls ORDER BY `group`");
     res.json(rows);
@@ -35,13 +33,11 @@
     res.json(rows);
   });
 
-  // ✅ 1. ดึง Group ทั้งหมด
   app.get("/api/groups", async (req, res) => {
     const [rows] = await db.query("SELECT DISTINCT `group` FROM coursealls ORDER BY `group`");
     res.json(rows);
   });
 
-  // ✅ 2. ดึง Semigroup ตาม Group
   app.get("/api/semigroups", async (req, res) => {
     const { group } = req.query;
     const [rows] = await db.query(
@@ -51,7 +47,6 @@
     res.json(rows);
   });
 
-  // ✅ 3. ดึง Level ตาม Group + Semigroup
   app.get("/api/levels", async (req, res) => {
     const { group, semigroup } = req.query;
     const [rows] = await db.query(
@@ -61,7 +56,6 @@
     res.json(rows);
   });
 
-  // ✅ 4. ดึง CourseGroup ตาม Group + Semigroup + Level
   app.get("/api/coursegroups", async (req, res) => {
     const { group, semigroup, level } = req.query;
     const [rows] = await db.query(
@@ -71,7 +65,6 @@
     res.json(rows);
   });
 
-  // ✅ 5. ดึง Courses ตาม Group + Semigroup + Level + CourseGroup
   app.get("/api/courses", async (req, res) => {
     const { group, semigroup, level, coursegroup } = req.query;
     const [rows] = await db.query(
