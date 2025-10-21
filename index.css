@@ -1,6 +1,6 @@
 
 .topnav {
-  background-color: #333;
+  background-color: #070954;
   overflow: hidden;
 }
 
@@ -24,4 +24,9 @@
 .topnav a.active {
   background-color: #04AA6D;
   color: white;
+}
+
+.box{
+    margin: 40px auto; 
+    max-width: 600px;
 }
