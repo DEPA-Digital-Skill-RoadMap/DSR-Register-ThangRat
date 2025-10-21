@@ -63,27 +63,27 @@
       
 
     <div>
-      <label>Group</label>
+      <label>กลุ่ม</label>
       <select id="group"></select>
     </div>
 
     <div>
-      <label>Semigroup</label>
+      <label>กลุ่มย่อย</label>
       <select id="semigroup"></select>
     </div>
 
     <div>
-      <label>Level</label>
+      <label>ระดับหลักสูตร</label>
       <select id="level"></select>
     </div>
 
     <div>
-      <label>Course Group</label>
+      <label>กลุ่มหลักสูตร</label>
       <select id="coursegroup"></select>
     </div>
 
     <div>
-      <label>Courses</label>
+      <label>หลักสูตร</label>
       <select id="course"></select>
     </div>
 
@@ -113,7 +113,31 @@
       <button id="submitBtn" class="button is-primary">บันทึกข้อมูล</button>
     </div>
   </div>
-  </div>  
+  </div>
+  
+    <!-- หน้ารอโหลด -->
+  <div id="loadingPage" class="hidden">
+    <div class="screen-center">
+      <div class="screen-loader">
+        <div></div><div></div><div></div><div></div>
+      </div>
+      <br>กำลังส่งข้อมูล...
+    </div>
+  </div>
+
+  <!-- หน้าหลังส่งเสร็จ -->
+  <div id="successPage" class="hidden">
+    <div class="screen-center">
+      โครงการได้รับใบสมัครของท่านแล้ว <br>
+      โปรดตรวจสอบข้อความใหม่ในอีเมล<br>
+      หากท่านยังไม่ได้รับอีเมลโปรดตรวจสอบใน Junk Mail ของท่าน หรือหากภายใน 30 นาทีท่านยังไม่ได้รับอีเมลให้รบกวนดำเนินการสมัครใหม่อีกครั้งค่ะ/ครับ
+      <br>
+      ติดตามข้อมูลข่าวสารของโครงการได้ที่ https://www.facebook.com/depathai
+      <br><br>
+      <button id="backBtn">กลับหน้าแรก</button>
+    </div>
+  </div>
+
   </section>
 
   <script>
@@ -136,7 +160,7 @@
     const courseSelect = document.getElementById("course");
 
     async function loadGroups() {
-      const res = await fetch("/api/groups");
+      const res = await fetch("http://18.139.142.149:3000/api/groups");
       const data = await res.json();
       groupSelect.innerHTML = `<option value="">-- เลือก Group --</option>`;
       data.forEach(g => groupSelect.innerHTML += `<option value="${g.group}">${g.group}</option>`);
@@ -144,7 +168,7 @@
 
     groupSelect.addEventListener("change", async () => {
       const group = groupSelect.value;
-      const res = await fetch(`/api/semigroups?group=${encodeURIComponent(group)}`);
+      const res = await fetch(`http://18.139.142.149:3000/api/semigroups?group=${encodeURIComponent(group)}`);
       const data = await res.json();
       semigroupSelect.innerHTML = `<option value="">-- เลือก Semigroup --</option>`;
       data.forEach(s => semigroupSelect.innerHTML += `<option value="${s.semigroup}">${s.semigroup}</option>`);
@@ -154,7 +178,7 @@
     semigroupSelect.addEventListener("change", async () => {
       const group = groupSelect.value;
       const semigroup = semigroupSelect.value;
-      const res = await fetch(`/api/levels?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}`);
+      const res = await fetch(`http://18.139.142.149:3000/api/levels?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}`);
       const data = await res.json();
       levelSelect.innerHTML = `<option value="">-- เลือก Level --</option>`;
       data.forEach(l => levelSelect.innerHTML += `<option value="${l.level}">${l.level}</option>`);
@@ -165,7 +189,7 @@
       const group = groupSelect.value;
       const semigroup = semigroupSelect.value;
       const level = levelSelect.value;
-      const res = await fetch(`/api/coursegroups?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}`);
+      const res = await fetch(`http://18.139.142.149:3000/api/coursegroups?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}`);
       const data = await res.json();
       courseGroupSelect.innerHTML = `<option value="">-- เลือกกลุ่มวิชา --</option>`;
       data.forEach(cg => courseGroupSelect.innerHTML += `<option value="${cg.coursegroup}">${cg.coursegroup}</option>`);
@@ -177,7 +201,7 @@
       const semigroup = semigroupSelect.value;
       const level = levelSelect.value;
       const coursegroup = courseGroupSelect.value;
-      const res = await fetch(`/api/courses?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}&coursegroup=${encodeURIComponent(coursegroup)}`);
+      const res = await fetch(`http://18.139.142.149:3000/api/courses?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}&coursegroup=${encodeURIComponent(coursegroup)}`);
       const data = await res.json();
       courseSelect.innerHTML = `<option value="">-- เลือกหลักสูตร --</option>`;
       data.forEach(c => courseSelect.innerHTML += `<option value="${c.courses}">${c.courses}</option>`);
@@ -193,7 +217,7 @@
     if (!group || !semigroup || !level || !coursegroup || !courses) return;
 
     const res = await fetch(
-      `/api/otherdocs?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}&coursegroup=${encodeURIComponent(coursegroup)}&courses=${encodeURIComponent(courses)}`
+      `http://18.139.142.149:3000/api/otherdocs?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}&coursegroup=${encodeURIComponent(coursegroup)}&courses=${encodeURIComponent(courses)}`
     );
     const data = await res.json();
 
@@ -207,46 +231,68 @@
 
 
     loadGroups();
-    document.getElementById("submitBtn").addEventListener("click", async () => {
-      const payload = {
-        idcard: document.getElementById("idcard").value,
-        name: document.getElementById("name").value,
-        surname: document.getElementById("surname").value,
-        email: document.getElementById("email").value,
-        Numphone: document.getElementById("Numphone").value,
-        Birth: document.getElementById("Birth").value,
-        IDCardlink: document.getElementById("IDCardlink").value,
-        Otherdoclink: document.getElementById("Otherdoclink").value,
-        group: groupSelect.value,
-        semigroup: semigroupSelect.value,
-        level: levelSelect.value,
-        coursegroup: courseGroupSelect.value,
-        course: courseSelect.value
-      };
+document.getElementById("submitBtn").addEventListener("click", async () => {
+  const mainContent = document.querySelector(".box"); // ส่วนหลักทั้งหมด
+  const loadingPage = document.getElementById("loadingPage");
+  const successPage = document.getElementById("successPage");
 
-      if (!payload.group || !payload.level || !payload.course) {
-        alert("กรุณาเลือกข้อมูลให้ครบก่อนส่ง!");
-        return;
-      }
+  const payload = {
+    idcard: document.getElementById("idcard").value,
+    name: document.getElementById("name").value,
+    surname: document.getElementById("surname").value,
+    email: document.getElementById("email").value,
+    Numphone: document.getElementById("Numphone").value,
+    Birth: document.getElementById("Birth").value,
+    IDCardlink: document.getElementById("IDCardlink").value,
+    Otherdoclink: document.getElementById("Otherdoclink").value,
+    group: groupSelect.value,
+    semigroup: semigroupSelect.value,
+    level: levelSelect.value,
+    coursegroup: courseGroupSelect.value,
+    course: courseSelect.value
+  };
 
-      try {
-        const res = await fetch("/api/saveSelection", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
+  if (!payload.group || !payload.level || !payload.course) {
+    alert("กรุณาเลือกข้อมูลให้ครบก่อนส่ง!");
+    return;
+  }
 
-        const result = await res.json();
-        if (result.success) {
-          alert("✅ บันทึกข้อมูลเรียบร้อยแล้ว!");
-        } else {
-          alert("❌ เกิดข้อผิดพลาด: " + result.message);
-        }
-      } catch (err) {
-        console.error(err);
-        alert("ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้");
-      }
+  // ✅ แสดงหน้ารอโหลด
+  mainContent.style.display = "none";
+  loadingPage.classList.remove("hidden");
+
+  try {
+    const res = await fetch("http://18.139.142.149:3000/api/saveSelection", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
     });
+
+    const result = await res.json();
+
+    // ซ่อนหน้ารอโหลด
+    loadingPage.classList.add("hidden");
+
+    if (result.success) {
+      // ✅ แสดงหน้าสำเร็จ
+      successPage.classList.remove("hidden");
+    } else {
+      alert("❌ เกิดข้อผิดพลาด: " + result.message);
+      mainContent.style.display = "block";
+    }
+  } catch (err) {
+    console.error(err);
+    alert("⚠️ ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้");
+    loadingPage.classList.add("hidden");
+    mainContent.style.display = "block";
+  }
+});
+
+document.getElementById("backBtn").addEventListener("click", () => {
+  // กลับมาหน้าแรก
+  document.getElementById("successPage").classList.add("hidden");
+  document.querySelector(".box").style.display = "block";
+});
   </script>
 </body>
 </html>
