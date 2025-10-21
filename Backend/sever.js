@@ -1,47 +1,124 @@
-// server.js
 import express from "express";
 import cors from "cors";
+import mysql from "mysql2/promise";
+import multer from "multer";
 import dotenv from "dotenv";
-import pool from "./db.js";
 
 dotenv.config();
 
 const app = express();
-app.use(cors({ origin: `${process.env.DNS}` })); // 🔒 ถ้าระบบจริง ควรใส่ domain เช่น "https://your-frontend.com"
+app.use(cors());
 app.use(express.json());
 
-// ✅ ทดสอบ API
-app.get("/", (req, res) => {
-  res.send("API is running...");
+// ตั้งค่าการเชื่อมต่อฐานข้อมูล
+const db = await mysql.createPool({
+  host: process.env.host,
+  user: process.env.user,
+  password: process.env.password,
+  database: process.env.database,
+  charset: "utf8mb4"
 });
 
-// ✅ บันทึกข้อมูลจากหน้าเว็บ
-app.post("/save", async (req, res) => {
+
+// ✅ API อื่น ๆ (เหมือนของคุณเดิม)
+app.get("/api/groups", async (req, res) => {
+  const [rows] = await db.query("SELECT DISTINCT `group` FROM coursealls ORDER BY `group`");
+  res.json(rows);
+});
+
+app.get("/api/semigroups", async (req, res) => {
+  const { group } = req.query;
+  const [rows] = await db.query(
+    "SELECT DISTINCT semigroup FROM coursealls WHERE `group` = ? ORDER BY semigroup",
+    [group]
+  );
+  res.json(rows);
+});
+
+// ✅ 1. ดึง Group ทั้งหมด
+app.get("/api/groups", async (req, res) => {
+  const [rows] = await db.query("SELECT DISTINCT `group` FROM coursealls ORDER BY `group`");
+  res.json(rows);
+});
+
+// ✅ 2. ดึง Semigroup ตาม Group
+app.get("/api/semigroups", async (req, res) => {
+  const { group } = req.query;
+  const [rows] = await db.query(
+    "SELECT DISTINCT semigroup FROM coursealls WHERE `group` = ? ORDER BY semigroup",
+    [group]
+  );
+  res.json(rows);
+});
+
+// ✅ 3. ดึง Level ตาม Group + Semigroup
+app.get("/api/levels", async (req, res) => {
+  const { group, semigroup } = req.query;
+  const [rows] = await db.query(
+    "SELECT DISTINCT `level` FROM coursealls WHERE `group` = ? AND semigroup = ? ORDER BY `level`",
+    [group, semigroup]
+  );
+  res.json(rows);
+});
+
+// ✅ 4. ดึง CourseGroup ตาม Group + Semigroup + Level
+app.get("/api/coursegroups", async (req, res) => {
+  const { group, semigroup, level } = req.query;
+  const [rows] = await db.query(
+    "SELECT DISTINCT coursegroup FROM coursealls WHERE `group` = ? AND semigroup = ? AND `level` = ? ORDER BY coursegroup",
+    [group, semigroup, level]
+  );
+  res.json(rows);
+});
+
+// ✅ 5. ดึง Courses ตาม Group + Semigroup + Level + CourseGroup
+app.get("/api/courses", async (req, res) => {
+  const { group, semigroup, level, coursegroup } = req.query;
+  const [rows] = await db.query(
+    "SELECT courses FROM coursealls WHERE `group` = ? AND semigroup = ? AND `level` = ? AND coursegroup = ? ORDER BY courses",
+    [group, semigroup, level, coursegroup]
+  );
+  res.json(rows);
+});
+
+app.get("/api/otherdocs", async (req, res) => {
   try {
-    const { idcard, name, surname, email, Numphone, Birth } = req.body;
+    const { group, semigroup, level, coursegroup, courses } = req.query;
 
-    // ตรวจสอบว่าข้อมูลครบไหม
-    if (!idcard || !name || !surname || !email) {
-      return res.status(400).json({ message: "ข้อมูลไม่ครบถ้วน" });
-    }
+    const [rows] = await db.query(
+      "SELECT otherdoc FROM coursealls WHERE `group` = ? AND semigroup = ? AND `level` = ? AND coursegroup = ? AND courses = ? ORDER BY otherdoc",
+      [group, semigroup, level, coursegroup, courses]
+    );
 
-    // ใช้ parameterized query เพื่อป้องกัน SQL Injection
-    const sql = `
-      INSERT INTO registor (idcard, firstname, lastname, email, numphone, birthdate)
-      VALUES (?, ?, ?, ?, ?, ?)
-    `;
-
-    await pool.query(sql, [idcard, name, surname, email, Numphone, Birth]);
-
-    res.json({ message: "บันทึกข้อมูลสำเร็จ ✅" });
+    res.json(rows);
   } catch (err) {
-    console.error("❌ Error saving data:", err);
-    res.status(500).json({ message: "เกิดข้อผิดพลาดในระบบ" });
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-// ✅ เริ่มเซิร์ฟเวอร์
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+
+app.post("/api/saveSelection", async (req, res) => {
+  let {
+    idcard, name, surname, email, Numphone, Birth,
+    group, semigroup, level, coursegroup, course,
+    IDCardlink, Otherdoclink
+  } = req.body;
+  try {
+    const [result] = await db.execute(
+      `INSERT INTO registor (idcard, firstname, lastname, email, numphone, birthdate, \`group\`, semigroup, level, coursegroup, courses, IDCardlink, Otherdoclink)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [idcard, name, surname, email, Numphone, Birth, group, semigroup, level, coursegroup, course, IDCardlink, Otherdoclink]
+    );
+
+    res.json({ success: true, message: "Saved successfully", id: result.insertId });
+  } catch (err) {
+    console.error("Database Error:", err);
+    res.status(500).json({ success: false, message: "Database error" });
+  }
 });
+
+
+
+
+app.listen(3000,() => console.log("✅ Server running on http://localhost:3000"));

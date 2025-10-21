@@ -2,89 +2,113 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta charset="UTF-8">
 <link rel="stylesheet" href="https://czp.dga.or.th/cportal/sdk/css/v1/trunks.min.css"/>
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">    
+<link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">    
 <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Round" rel="stylesheet">
 <style>
-  body {
-    font-family: "Prompt", sans-serif;
-    margin: 40px auto;
-    max-width: 600px;
-  }
-  select, input {
-    width: 100%;
-    margin: 8px 0;
-    padding: 8px;
-    font-size: 16px;
-  }
+    body { font-family: "Segoe UI", sans-serif; margin: 40px auto; max-width: 600px; }
+    select { width: 100%; margin: 8px 0; padding: 8px; font-size: 16px; }
 </style>
 </head>
-
 <body class="container">
-  <div className="border rounded-3" >
-                <div className="fs-2 rounded-top" >
-                    <div 
-                    className="d-flex align-items-center flex-grow-1 text-wrap">
-                        <Navbar />
-                        <a href="/regshow" target="_self" className='fs-3 ms-3' ></a><br />
-                    </div>
-                </div>
-            </div>
   <section class="section">
-    <div>ยืนยันตัวตนเพื่อเข้าร่วมโครงการ Digital Skill Roadmap</div> <br>
     <fieldset disabled>
       <div class="field">
-        <label class="label">IDCARD*</label>
-        <div class="control">
-          <input id="idcard" class="input" type="text" placeholder="1103703753822">
-        </div>
+          <label class="label">IDCARD</label>
+          <div class="control">
+              <input id="idcard" class="input" type="text" placeholder="1103703753822">
+          </div>
       </div>
-
       <div class="field">
-        <label class="label">ชื่อ (First name)*</label>
-        <div class="control">
-          <input id="name" class="input" type="text" placeholder="สมชาย">
-        </div>
+          <label class="label">ชื่อ(First name)</label>
+          <div class="control">
+              <input id="name" class="input" type="text" placeholder="สมชาย">
+          </div>
       </div>
-
       <div class="field">
-        <label class="label">นามสกุล (Last name)*</label>
-        <div class="control">
-          <input id="surname" class="input" type="text" placeholder="สมชาย">
-        </div>
+          <label class="label">นามสกุล(Last name)</label>
+          <div class="control">
+              <input id="surname" class="input" type="text" placeholder="สมชาย">
+          </div>
       </div>
-
       <div class="field">
-        <label class="label">อีเมล*</label>
-        <div class="control">
-          <input id="email" class="input" type="email" placeholder="e.g. alexsmith@gmail.com">
-        </div>
+          <label class="label">อีเมล</label>
+          <div class="control">
+              <input id="email" class="input" type="email" placeholder="e.g. alexsmith@gmail.com">
+          </div>
       </div>
-
       <div class="field">
-        <label class="label">เบอร์โทร*</label>
-        <div class="control">
-          <input id="Numphone" class="input" type="text" placeholder="08x-xxx-xxxx">
-        </div>
+          <label class="label">เบอร์โทร</label>
+          <div class="control">
+              <input id="Numphone" class="input" type="text" placeholder="08x-xxx-xxxx">
+          </div>
       </div>
-
       <div class="field">
-        <label class="label">วันเดือนปีเกิด*</label>
-        <div class="control">
-          <input id="Birth" class="input" type="text" placeholder="20xx-xx-xx">
-        </div>
+          <label class="label">วันเดือนปีเกิด</label>
+          <div class="control">
+              <input id="Birth" class="input" type="text" placeholder="20xx-xx-xx">
+          </div>
       </div>
     </fieldset>
 
-    <div style="margin-top: 20px;">
-      <button id="submitBtn" class="button is-primary">ส่งแบบฟอร์ม</button>
+    <br>
+      
+
+    <div>
+      <label>Group</label>
+      <select id="group"></select>
     </div>
+
+    <div>
+      <label>Semigroup</label>
+      <select id="semigroup"></select>
+    </div>
+
+    <div>
+      <label>Level</label>
+      <select id="level"></select>
+    </div>
+
+    <div>
+      <label>Course Group</label>
+      <select id="coursegroup"></select>
+    </div>
+
+    <div>
+      <label>Courses</label>
+      <select id="course"></select>
+    </div>
+
+    <div class="box">
+      <div>วิธีการนำลิงก์สำเนาบัตรประชาชนและเอกสารเพิ่มเติมจาก Google Drive </div>
+      <img src="./image/97e34777-4abd-4bb6-8be6-a42dc9a0d42a.png" alt="How to get link">
+      <br>*ดูวิธีการอัปโหลดไฟล์แบบละเอียดได้ที่ลิงก์ด้านใต้ 
+      <br> <a href="https://short.depa.or.th/a2Hqv">Click Here</a>
+    </div>
+
+    <div class="field">
+          <label class="label">ลิงก์สำเนาบัตรประชาชน (ลิงก์ของ Google drive)</label>
+          <div class="control">
+              <input id="IDCardlink" class="input" type="text" placeholder="drive">
+          </div>
+      </div>
+    <div class="box">
+      <p class="otherdoc">โปรดเลือกหลักสูตร...</p>
+    </div>
+    <div class="field">
+          <label class="label">ลิงก์เอกสารเพิ่มเติม (ลิงก์ของ Google drive)</label>
+    <div class="control">
+          <input id="Otherdoclink" class="input" type="text" placeholder="drive">
+    </div>
+
+    <div style="margin-top: 20px;">
+      <button id="submitBtn" class="button is-primary">บันทึกข้อมูล</button>
+    </div>
+
   </section>
 
   <script>
-    // ดึงข้อมูลจาก mock API
     fetch('https://mocki.io/v1/20ecb20d-6232-4f21-b244-2909e7ea6272')
       .then(res => res.json())
       .then(data => {
@@ -97,7 +121,84 @@
       })
       .catch(err => console.error('Error:', err));
 
-    // ปุ่มบันทึกข้อมูล
+    const groupSelect = document.getElementById("group");
+    const semigroupSelect = document.getElementById("semigroup");
+    const levelSelect = document.getElementById("level");
+    const courseGroupSelect = document.getElementById("coursegroup");
+    const courseSelect = document.getElementById("course");
+
+    async function loadGroups() {
+      const res = await fetch("http://localhost:3000/api/groups");
+      const data = await res.json();
+      groupSelect.innerHTML = `<option value="">-- เลือก Group --</option>`;
+      data.forEach(g => groupSelect.innerHTML += `<option value="${g.group}">${g.group}</option>`);
+    }
+
+    groupSelect.addEventListener("change", async () => {
+      const group = groupSelect.value;
+      const res = await fetch(`http://localhost:3000/api/semigroups?group=${encodeURIComponent(group)}`);
+      const data = await res.json();
+      semigroupSelect.innerHTML = `<option value="">-- เลือก Semigroup --</option>`;
+      data.forEach(s => semigroupSelect.innerHTML += `<option value="${s.semigroup}">${s.semigroup}</option>`);
+      levelSelect.innerHTML = courseGroupSelect.innerHTML = courseSelect.innerHTML = "";
+    });
+
+    semigroupSelect.addEventListener("change", async () => {
+      const group = groupSelect.value;
+      const semigroup = semigroupSelect.value;
+      const res = await fetch(`http://localhost:3000/api/levels?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}`);
+      const data = await res.json();
+      levelSelect.innerHTML = `<option value="">-- เลือก Level --</option>`;
+      data.forEach(l => levelSelect.innerHTML += `<option value="${l.level}">${l.level}</option>`);
+      courseGroupSelect.innerHTML = courseSelect.innerHTML = "";
+    });
+
+    levelSelect.addEventListener("change", async () => {
+      const group = groupSelect.value;
+      const semigroup = semigroupSelect.value;
+      const level = levelSelect.value;
+      const res = await fetch(`http://localhost:3000/api/coursegroups?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}`);
+      const data = await res.json();
+      courseGroupSelect.innerHTML = `<option value="">-- เลือกกลุ่มวิชา --</option>`;
+      data.forEach(cg => courseGroupSelect.innerHTML += `<option value="${cg.coursegroup}">${cg.coursegroup}</option>`);
+      courseSelect.innerHTML = "";
+    });
+
+    courseGroupSelect.addEventListener("change", async () => {
+      const group = groupSelect.value;
+      const semigroup = semigroupSelect.value;
+      const level = levelSelect.value;
+      const coursegroup = courseGroupSelect.value;
+      const res = await fetch(`http://localhost:3000/api/courses?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}&coursegroup=${encodeURIComponent(coursegroup)}`);
+      const data = await res.json();
+      courseSelect.innerHTML = `<option value="">-- เลือกหลักสูตร --</option>`;
+      data.forEach(c => courseSelect.innerHTML += `<option value="${c.courses}">${c.courses}</option>`);
+    });
+
+    courseSelect.addEventListener("change", async () => {
+    const group = groupSelect.value;
+    const semigroup = semigroupSelect.value;
+    const level = levelSelect.value;
+    const coursegroup = courseGroupSelect.value;
+    const courses = courseSelect.value;
+
+    if (!group || !semigroup || !level || !coursegroup || !courses) return;
+
+    const res = await fetch(
+      `http://localhost:3000/api/otherdocs?group=${encodeURIComponent(group)}&semigroup=${encodeURIComponent(semigroup)}&level=${encodeURIComponent(level)}&coursegroup=${encodeURIComponent(coursegroup)}&courses=${encodeURIComponent(courses)}`
+    );
+    const data = await res.json();
+
+    const otherdoc = document.querySelector(".otherdoc");
+    if (data.length > 0 && data[0].otherdoc) {
+      otherdoc.textContent = data[0].otherdoc;
+    } else {
+      otherdoc.textContent = "ไม่มีข้อมูล otherdoc";
+    }
+  });
+
+
+    loadGroups();
     document.getElementById("submitBtn").addEventListener("click", async () => {
       const payload = {
         idcard: document.getElementById("idcard").value,
@@ -106,24 +207,36 @@
         email: document.getElementById("email").value,
         Numphone: document.getElementById("Numphone").value,
         Birth: document.getElementById("Birth").value,
+        IDCardlink: document.getElementById("IDCardlink").value,
+        Otherdoclink: document.getElementById("Otherdoclink").value,
+        group: groupSelect.value,
+        semigroup: semigroupSelect.value,
+        level: levelSelect.value,
+        coursegroup: courseGroupSelect.value,
+        course: courseSelect.value
       };
 
-      console.log("ข้อมูลที่เตรียมส่ง:", payload);
+      if (!payload.group || !payload.level || !payload.course) {
+        alert("กรุณาเลือกข้อมูลให้ครบก่อนส่ง!");
+        return;
+      }
 
       try {
-        // ตัวอย่างส่งข้อมูลไปยัง backend (เปลี่ยน URL ตามจริง)
-        const response = await fetch("/save", {
+        const res = await fetch("http://localhost:3000/api/saveSelection", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
+          body: JSON.stringify(payload)
         });
 
-        if (!response.ok) throw new Error("ส่งข้อมูลไม่สำเร็จ");
-
-        alert("บันทึกข้อมูลสำเร็จ!");
-      } catch (error) {
-        console.error("Error:", error);
-        alert("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+        const result = await res.json();
+        if (result.success) {
+          alert("✅ บันทึกข้อมูลเรียบร้อยแล้ว!");
+        } else {
+          alert("❌ เกิดข้อผิดพลาด: " + result.message);
+        }
+      } catch (err) {
+        console.error(err);
+        alert("ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้");
       }
     });
   </script>
