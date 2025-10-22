@@ -1,3 +1,8 @@
 {
-    "IsMaintanence":false
+    "IsMaintanence":false,
+    "AppID":"1fd5bfd8-b10e-4d58-b0e2-f5c3b4ab169f",
+    "ConsumerKey":"9694b406-6096-450b-9f37-89d9d1de1900",
+    "ConsumerSecret":"ewWKFiKJhOc",
+    "AgentID":"Mock101",   
+    "URL":"https://api.egov.go.th/ws/dga/czp/uat/v1/core/shield/data/mock"
 }

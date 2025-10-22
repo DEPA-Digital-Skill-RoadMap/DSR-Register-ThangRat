@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>สมัครโครงการ Digital Skill Roadmap</title>
-
   <!-- Stylesheets -->
   <link rel="stylesheet" href="https://czp.dga.or.th/cportal/sdk/css/v1/trunks.min.css" />
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -152,7 +151,69 @@
   <!-- Script -->
   <script>
     let BaseURL = "http://localhost:3000/api";
+    let CONFIG = "";
+    let Authen_Token = "";
+    init();
 
+    // 🔹 เริ่มต้นโปรแกรม
+    async function init() {
+      try {
+        // โหลดไฟล์ CONFIG
+        const res = await fetch("./IPCONFIG.json");
+        const data = await res.json();
+
+        BaseURL = data.IsMaintanence === false ? "/api" : "http://localhost:3000/api";
+        console.log("Maintenance:", data.IsMaintanence);
+        console.log("BaseURL:", BaseURL);
+
+        CONFIG = data;
+        loadGroups();
+
+        // 🔹 เรียกฟังก์ชัน LoadThangRatData() โดยส่ง CONFIG ที่พร้อมแล้ว
+        await Verify_AuthenicationToken(CONFIG);
+
+      } catch (err) {
+        console.error("Error:", err);
+      }
+    }
+    // get Authorization Token
+    async function Verify_AuthenicationToken(CONFIG) {
+      const res = await fetch(
+        `https://api.egov.go.th/ws/auth/validate?ConsumerSecret=${CONFIG.ConsumerSecret}&AgentID=${CONFIG.AgentID}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Consumer-Key": CONFIG.ConsumerKey,
+          },
+        }
+      );
+
+      const data = await res.json();
+      Authen_Token = data.Result;
+      console.log("Authen Token:", Authen_Token);
+      getting_M_Token(CONFIG,Authen_Token);
+    }
+    // Get MToken
+    async function getting_M_Token(CONFIG,Authen_Token){
+      const res = await fetch(`${CONFIG.URL}`,
+        {
+          method: "POST",
+          headers:{
+            "Consumer-Key": CONFIG.ConsumerKey,
+            "Content-Type": "application/json",
+            "Token":        Authen_Token
+          },
+          body: JSON.stringify({
+            appId: CONFIG.AppID ,
+
+          })
+        }
+      )
+      const data  = await res.json();
+      console.log("Mtoken" , data);
+    }
+    
     // Load mock personal data
     fetch('https://mocki.io/v1/20ecb20d-6232-4f21-b244-2909e7ea6272')
       .then(res => res.json())
@@ -166,16 +227,7 @@
       })
       .catch(err => console.error('Error:', err));
 
-    // Load BaseURL config
-    fetch("./IPCONFIG.json")
-      .then(res => res.json())
-      .then(data => {
-        BaseURL = data.IsMaintanence === false ? "/api" : "http://localhost:3000/api";
-        console.log("Maintenance:", data.IsMaintanence);
-        console.log("BaseURL:", BaseURL);
-        loadGroups();
-      })
-      .catch(err => console.error('Error:', err));
+    
 
     // Dropdown Elements
     const groupSelect = document.getElementById("group");
