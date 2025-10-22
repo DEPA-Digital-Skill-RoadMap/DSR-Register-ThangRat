@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>สมัครโครงการ Digital Skill Roadmap</title>
+  <script src="https://czp.dga.or.th/cportal/sdk/iu/v3/sdk.js"></script>
   <!-- Stylesheets -->
   <link rel="stylesheet" href="https://czp.dga.or.th/cportal/sdk/css/v1/trunks.min.css" />
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -153,6 +154,7 @@
     let BaseURL = "http://localhost:3000/api";
     let CONFIG = "";
     let Authen_Token = "";
+    REQUIRE_OUT_FROM_THANGRAT=""
     init();
 
     // 🔹 เริ่มต้นโปรแกรม
@@ -161,8 +163,9 @@
         // โหลดไฟล์ CONFIG
         const res = await fetch("./IPCONFIG.json");
         const data = await res.json();
-
-        BaseURL = data.IsMaintanence === false ? "/api" : "http://localhost:3000/api";
+        let appID = window.czpSdk.getAppId();
+        let mToken = window.czpSdk.getToken();
+        BaseURL = data.IsMaintanence === false ? "/api" : "http://18.139.142.149:4200/api";
         console.log("Maintenance:", data.IsMaintanence);
         console.log("BaseURL:", BaseURL);
 
@@ -192,11 +195,12 @@
       const data = await res.json();
       Authen_Token = data.Result;
       console.log("Authen Token:", Authen_Token);
-      getting_M_Token(CONFIG,Authen_Token);
+
+      CallIdentity(CONFIG,Authen_Token);
     }
-    // Get MToken
-    async function getting_M_Token(CONFIG,Authen_Token){
-      const res = await fetch(`${CONFIG.URL}`,
+    //call data 
+    async function CallIdentity(CONFIG,Authen_Token){
+       const res = await fetch(`https://api.egov.go.th/ws/dga/czp/uat/v1/core/shield/data/deproc`,
         {
           method: "POST",
           headers:{
@@ -205,27 +209,32 @@
             "Token":        Authen_Token
           },
           body: JSON.stringify({
-            appId: CONFIG.AppID ,
-
+            appId: window.czpSdk.getAppId() ,
+            mToken: window.czpSdk.getToken()
           })
         }
       )
       const data  = await res.json();
-      console.log("Mtoken" , data);
+      REQUIRE_OUT_FROM_THANGRAT = data.result;
+      console.log(data.result);
+      document.getElementById('idcard').value = data.result.citizenId || '';
+      document.getElementById('name').value = data.result.firstName || '';
+      document.getElementById('surname').value = data.result.lastName || '';
+      document.getElementById('email').value = data.result.email || '';
+      document.getElementById('Numphone').value = data.result.mobile || '';
+      document.getElementById('Birth').value = data.result.dateOfBirthString || '';
     }
-    
-    // Load mock personal data
-    fetch('https://mocki.io/v1/20ecb20d-6232-4f21-b244-2909e7ea6272')
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById('idcard').value = data.idcard || '';
-        document.getElementById('name').value = data.name || '';
-        document.getElementById('surname').value = data.surname || '';
-        document.getElementById('email').value = data.email || '';
-        document.getElementById('Numphone').value = data.Numphone || '';
-        document.getElementById('Birth').value = data.Birth || '';
-      })
-      .catch(err => console.error('Error:', err));
+    // fetch('https://mocki.io/v1/20ecb20d-6232-4f21-b244-2909e7ea6272')
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     document.getElementById('idcard').value = data.idcard || '';
+    //     document.getElementById('name').value = data.name || '';
+    //     document.getElementById('surname').value = data.surname || '';
+    //     document.getElementById('email').value = data.email || '';
+    //     document.getElementById('Numphone').value = data.Numphone || '';
+    //     document.getElementById('Birth').value = data.Birth || '';
+    //   })
+    //   .catch(err => console.error('Error:', err));
 
     
 
@@ -289,14 +298,25 @@
       const mainContent = document.querySelector(".box");
       const loadingPage = document.getElementById("loadingPage");
       const successPage = document.getElementById("successPage");
-
+// idcard: REQUIRE_OUT_FROM_THANGRAT.citizenId,
+//         name: REQUIRE_OUT_FROM_THANGRAT.firstName,
+//         surname: REQUIRE_OUT_FROM_THANGRAT.lastName,
+//         email: REQUIRE_OUT_FROM_THANGRAT.email,
+//         Numphone: REQUIRE_OUT_FROM_THANGRAT.mobile,
+//         Birth: REQUIRE_OUT_FROM_THANGRAT.dateOfBirthString,
       const payload = {
-        idcard: idcard.value,
-        name: name.value,
-        surname: surname.value,
-        email: email.value,
-        Numphone: Numphone.value,
-        Birth: Birth.value,
+        // idcard: idcard.value,
+        // name: name.value,
+        // surname: surname.value,
+        // email: email.value,
+        // Numphone: Numphone.value,
+        // Birth: Birth.value,
+        idcard: REQUIRE_OUT_FROM_THANGRAT.citizenId,
+        name: REQUIRE_OUT_FROM_THANGRAT.firstName,
+        surname: REQUIRE_OUT_FROM_THANGRAT.lastName,
+        email: REQUIRE_OUT_FROM_THANGRAT.email,
+        Numphone: REQUIRE_OUT_FROM_THANGRAT.mobile,
+        Birth: REQUIRE_OUT_FROM_THANGRAT.dateOfBirthString,
         IDCardlink: IDCardlink.value,
         Otherdoclink: Otherdoclink.value,
         group: groupSelect.value,
@@ -345,3 +365,7 @@
   </script>
 </body>
 </html>
+
+<!-- HOW TO 101 (วิธีหา mToken , appID ): เอามาจาก postman โดยที่ทำถึงแค่ "02 MockData" -->
+<!-- HOW TO 102   (วิธีเข้าลิ้ง) (localhost): http://DOMAINNAME/index.html?appId=XXXXXX&mToken=XXXXXXXXX -->
+<!-- HOW TO 102.5 (วิธีเข้าลิ้ง) (domain/deployweb): http://DOMAIN/?appId=XXXXXX&mToken=XXXXXXXXX -->
