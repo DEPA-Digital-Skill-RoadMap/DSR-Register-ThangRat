@@ -163,15 +163,13 @@
         // โหลดไฟล์ CONFIG
         const res = await fetch("./IPCONFIG.json");
         const data = await res.json();
-        let appID = window.czpSdk.getAppId();
-        let mToken = window.czpSdk.getToken();
         BaseURL = data.IsMaintanence === false ? "/api" : "http://18.139.142.149:4200/api";
         console.log("Maintenance:", data.IsMaintanence);
         console.log("BaseURL:", BaseURL);
       
         CONFIG = data;
-        console.log(CONFIG);
-        console.log(data);
+        console.log('Log',CONFIG);
+        console.log('Log',data);
         loadGroups();
 
         // 🔹 เรียกฟังก์ชัน LoadThangRatData() โดยส่ง CONFIG ที่พร้อมแล้ว
