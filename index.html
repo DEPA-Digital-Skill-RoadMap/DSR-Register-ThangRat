@@ -168,8 +168,10 @@
         BaseURL = data.IsMaintanence === false ? "/api" : "http://18.139.142.149:4200/api";
         console.log("Maintenance:", data.IsMaintanence);
         console.log("BaseURL:", BaseURL);
-
+      
         CONFIG = data;
+        console.log(CONFIG);
+        console.log(data);
         loadGroups();
 
         // 🔹 เรียกฟังก์ชัน LoadThangRatData() โดยส่ง CONFIG ที่พร้อมแล้ว
