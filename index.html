@@ -161,7 +161,7 @@
     async function init() {
       try {
         // โหลดไฟล์ CONFIG
-        const res = await fetch("./IPCONFIG.json");
+        const res = await fetch(`./IPCONFIG.json?t=${Date.now()}`);
         const data = await res.json();
         BaseURL = data.IsMaintanence === false ? "/api" : "http://18.139.142.149:4200/api";
         console.log("Maintenance:", data.IsMaintanence);
