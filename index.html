@@ -311,8 +311,6 @@
     courseSelect.addEventListener("change", async () => {
       const res = await fetch(`${BaseURL}/otherdocs?group=${encodeURIComponent(groupSelect.value)}&semigroup=${encodeURIComponent(semigroupSelect.value)}&level=${encodeURIComponent(levelSelect.value)}&coursegroup=${encodeURIComponent(courseGroupSelect.value)}&courses=${encodeURIComponent(courseSelect.value)}`);
       const data = await res.json();
-      console.log(groupSelect.value, semigroupSelect.value, levelSelect.value, courseGroupSelect.value, courseSelect.value );
-      console.log(data);
       otherdoc.textContent = (data.length > 0 && data[0].otherdoc) ? data[0].otherdoc : "ไม่มีข้อมูล otherdoc";
     });
 
