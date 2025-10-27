@@ -138,7 +138,8 @@
 
   <!-- Success Page -->
   <div id="successPage" class="hidden">
-    <div class="screen-center">
+    <!-- <div class="screen-center">
+      
       โครงการได้รับใบสมัครของท่านแล้ว<br>
       โปรดตรวจสอบข้อความใหม่ในอีเมล<br>
       หากยังไม่ได้รับ โปรดตรวจสอบใน Junk Mail หรือสมัครใหม่ภายใน 30 นาที<br>
@@ -146,8 +147,28 @@
       <a href="https://www.facebook.com/depathai" target="_blank">Facebook DEPATHAI</a>
       <br><br>
       <button id="backBtn">กลับหน้าแรก</button>
+    </div> -->
+  <div style="min-height:100vh; display:flex; justify-content:center; align-items:center; padding-bottom:4rem;">
+    <div style="text-align:center; gap:1rem; display:flex; flex-direction:column; align-items:center;">
+
+      <!-- ไอคอนติ๊กถูก -->
+      <span class="has-text-success" style="display:flex; align-items:center; justify-content:center;">
+        <span class="material-icons-round" style="font-size:5rem;">check_circle</span>
+      </span>
+
+      <!-- ข้อความหลัก -->
+      <h6>โครงการได้รับใบสมัครของท่านแล้ว</h6>
+      <span>โปรดตรวจสอบข้อความใหม่ในอีเมล</span>
+      <span>หากยังไม่ได้รับ โปรดตรวจสอบใน Junk Mail หรือสมัครใหม่ภายใน 30 นาที</span>
+
+      <!-- ลิงก์และปุ่ม -->
+      <span>ติดตามข้อมูลข่าวสารได้ที่</span>
+      <a href="https://www.facebook.com/depathai" target="_blank">Facebook DEPATHAI</a>
+
+      <button id="backBtn" class="button is-success is-light" style="margin-top:1rem;">กลับหน้าแรก</button>
     </div>
   </div>
+
 
   <!-- Script -->
   <script>
