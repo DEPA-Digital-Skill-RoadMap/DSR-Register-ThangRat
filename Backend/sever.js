@@ -22,28 +22,28 @@
 
 
   app.get("/api/groups", async (req, res) => {
-    const [rows] = await db.query("SELECT DISTINCT `group` FROM coursealls ORDER BY `group`");
+    const [rows] = await db.query("SELECT DISTINCT `group` FROM CourseForMiniapp ORDER BY `group`");
     res.json(rows);
   });
 
   app.get("/api/semigroups", async (req, res) => {
     const { group } = req.query;
     const [rows] = await db.query(
-      "SELECT DISTINCT semigroup FROM coursealls WHERE `group` = ? ORDER BY semigroup",
+      "SELECT DISTINCT semigroup FROM CourseForMiniapp WHERE `group` = ? ORDER BY semigroup",
       [group]
     );
     res.json(rows);
   });
 
   app.get("/api/groups", async (req, res) => {
-    const [rows] = await db.query("SELECT DISTINCT `group` FROM coursealls ORDER BY `group`");
+    const [rows] = await db.query("SELECT DISTINCT `group` FROM CourseForMiniapp ORDER BY `group`");
     res.json(rows);
   });
 
   app.get("/api/semigroups", async (req, res) => {
     const { group } = req.query;
     const [rows] = await db.query(
-      "SELECT DISTINCT semigroup FROM coursealls WHERE `group` = ? ORDER BY semigroup",
+      "SELECT DISTINCT semigroup FROM CourseForMiniapp WHERE `group` = ? ORDER BY semigroup",
       [group]
     );
     res.json(rows);
@@ -52,7 +52,7 @@
   app.get("/api/levels", async (req, res) => {
     const { group, semigroup } = req.query;
     const [rows] = await db.query(
-      "SELECT DISTINCT `level` FROM coursealls WHERE `group` = ? AND semigroup = ? ORDER BY `level`",
+      "SELECT DISTINCT `level` FROM CourseForMiniapp WHERE `group` = ? AND semigroup = ? ORDER BY `level`",
       [group, semigroup]
     );
     res.json(rows);
@@ -61,7 +61,7 @@
   app.get("/api/coursegroups", async (req, res) => {
     const { group, semigroup, level } = req.query;
     const [rows] = await db.query(
-      "SELECT DISTINCT coursegroup FROM coursealls WHERE `group` = ? AND semigroup = ? AND `level` = ? ORDER BY coursegroup",
+      "SELECT DISTINCT coursegroup FROM CourseForMiniapp WHERE `group` = ? AND semigroup = ? AND `level` = ? ORDER BY coursegroup",
       [group, semigroup, level]
     );
     res.json(rows);
@@ -70,7 +70,7 @@
   app.get("/api/courses", async (req, res) => {
     const { group, semigroup, level, coursegroup } = req.query;
     const [rows] = await db.query(
-      "SELECT courses FROM coursealls WHERE `group` = ? AND semigroup = ? AND `level` = ? AND coursegroup = ? ORDER BY courses",
+      "SELECT courses FROM CourseForMiniapp WHERE `group` = ? AND semigroup = ? AND `level` = ? AND coursegroup = ? ORDER BY courses",
       [group, semigroup, level, coursegroup]
     );
     res.json(rows);
@@ -81,7 +81,7 @@
       const { group, semigroup, level, coursegroup, courses } = req.query;
 
       const [rows] = await db.query(
-        "SELECT otherdoc FROM coursealls WHERE `group` = ? AND semigroup = ? AND `level` = ? AND coursegroup = ? AND courses = ? ORDER BY otherdoc",
+        "SELECT otherdoc FROM CourseForMiniapp WHERE `group` = ? AND semigroup = ? AND `level` = ? AND coursegroup = ? AND courses = ? ORDER BY otherdoc",
         [group, semigroup, level, coursegroup, courses]
       );
 
@@ -93,36 +93,25 @@
   });
 
 
-app.post("/api/saveSelection", async (req, res) => {
-  let {
-    idcard, name, surname, email, Numphone, Birth,
-    group, semigroup, level, coursegroup, course,
-    IDCardlink, Otherdoclink
-  } = req.body;
+  app.post("/api/saveSelection", async (req, res) => {
+    let {
+      idcard, name, surname, email, Numphone, Birth,
+      group, semigroup, level, coursegroup, course,
+      IDCardlink, Otherdoclink
+    } = req.body;
+    try {
+      const [result] = await db.execute(
+        `INSERT INTO registor (idcard, firstname, lastname, email, numphone, birthdate, \`group\`, semigroup, level, coursegroup, courses, IDCardlink, Otherdoclink)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [idcard, name, surname, email, Numphone, Birth, group, semigroup, level, coursegroup, course, IDCardlink, Otherdoclink]
+      );
 
-  // ✅ ตั้งเวลาเป็นเวลาประเทศไทย (GMT+7)
-  const timestamp = moment().tz("Asia/Bangkok").format("YYYY-MM-DD HH:mm:ss");
-
-  try {
-    const [result] = await db.execute(
-      `INSERT INTO registor (
-        idcard, firstname, lastname, email, numphone, birthdate, 
-        \`group\`, semigroup, level, coursegroup, courses, 
-        IDCardlink, Otherdoclink, created_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        idcard, name, surname, email, Numphone, Birth,
-        group, semigroup, level, coursegroup, course,
-        IDCardlink, Otherdoclink, timestamp
-      ]
-    );
-
-    res.json({ success: true, message: "Saved successfully", id: result.insertId });
-  } catch (err) {
-    console.error("Database Error:", err);
-    res.status(500).json({ success: false, message: "Database error" });
-  }
-});
+      res.json({ success: true, message: "Saved successfully", id: result.insertId });
+    } catch (err) {
+      console.error("Database Error:", err);
+      res.status(500).json({ success: false, message: "Database error" });
+    }
+  });
 
 
 
