@@ -332,13 +332,14 @@
       )
       const data  = await res.json();
       REQUIRE_OUT_FROM_THANGRAT = data.result;
+      let DateOfBirth_reMap = `${REQUIRE_OUT_FROM_THANGRAT.dateOfBirthString.slice(0, 4)}-${REQUIRE_OUT_FROM_THANGRAT.dateOfBirthString.slice(4, 6)}-${REQUIRE_OUT_FROM_THANGRAT.dateOfBirthString.slice(6, 8)}`  //yy-mm-dd
       console.log(data.result);
-      document.getElementById('idcard').value = data.result.citizenId || '';
-      document.getElementById('name').value = data.result.firstName || '';
-      document.getElementById('surname').value = data.result.lastName || '';
-      document.getElementById('email').value = data.result.email || '';
-      document.getElementById('Numphone').value = data.result.mobile || '';
-      document.getElementById('Birth').value = data.result.dateOfBirthString || '';
+      document.getElementById('idcard').value = REQUIRE_OUT_FROM_THANGRAT.citizenId || '';
+      document.getElementById('name').value = REQUIRE_OUT_FROM_THANGRAT.firstName || '';
+      document.getElementById('surname').value = REQUIRE_OUT_FROM_THANGRAT.lastName || '';
+      document.getElementById('email').value = REQUIRE_OUT_FROM_THANGRAT.email || '';
+      document.getElementById('Numphone').value = REQUIRE_OUT_FROM_THANGRAT.mobile || '';
+      document.getElementById('Birth').value = DateOfBirth_reMap || '';
     }
     // fetch('https://mocki.io/v1/20ecb20d-6232-4f21-b244-2909e7ea6272')
     //   .then(res => res.json())
@@ -432,7 +433,7 @@
         surname: REQUIRE_OUT_FROM_THANGRAT.lastName,
         email: REQUIRE_OUT_FROM_THANGRAT.email,
         Numphone: REQUIRE_OUT_FROM_THANGRAT.mobile,
-        Birth: REQUIRE_OUT_FROM_THANGRAT.dateOfBirthString,
+        Birth: DateOfBirth_reMap,
         gender: gender.value,
         province: province.value,
         IDCardlink: IDCardlink.value,
