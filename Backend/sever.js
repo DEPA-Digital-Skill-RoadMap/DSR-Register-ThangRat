@@ -82,7 +82,7 @@
         "SELECT otherdoc FROM coursealls WHERE `group` = ? AND semigroup = ? AND `level` = ? AND coursegroup = ? AND courses = ? ORDER BY otherdoc",
         [group, semigroup, level, coursegroup, courses]
       );
-
+      
       res.json(rows);
     } catch (err) {
       console.error(err);
