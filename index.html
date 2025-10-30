@@ -207,6 +207,9 @@
 
       <div class="box">
         <p class="otherdoc">โปรดเลือกหลักสูตร...</p>
+          <div id="KYS" class="hidden">
+            <img src="./image/KYS.png" alt="" width="300" height="150">
+          </div>
       </div>
 
       <div class="field">
@@ -374,12 +377,27 @@
     // Dynamic dropdown handlers
     groupSelect.addEventListener("change", async () => {
       const group = groupSelect.value;
-      const res = await fetch(`${BaseURL}/semigroups?group=${encodeURIComponent(group)}`);
-      const data = await res.json();
-      semigroupSelect.innerHTML = `<option value="">-- เลือก Semigroup --</option>`;
-      data.forEach(s => semigroupSelect.innerHTML += `<option value="${s.semigroup}">${s.semigroup}</option>`);
-      levelSelect.innerHTML = courseGroupSelect.innerHTML = courseSelect.innerHTML = "";
-    });
+
+      // ✅ ส่วนนี้คือการแสดง/ซ่อนรูป
+        const kysDiv = document.getElementById("KYS");
+        if (group === "ผู้กู้กยศ.") {
+          kysDiv.classList.remove("hidden");
+        } else {
+          kysDiv.classList.add("hidden");
+        }
+
+        // ✅ ส่วนนี้คือการ fetch semigroup (โค้ดเดิมของคุณ)
+        const res = await fetch(`${BaseURL}/semigroups?group=${encodeURIComponent(group)}`);
+        const data = await res.json();
+
+        semigroupSelect.innerHTML = `<option value="">-- เลือก Semigroup --</option>`;
+        data.forEach(s => {
+          semigroupSelect.innerHTML += `<option value="${s.semigroup}">${s.semigroup}</option>`;
+        });
+
+        levelSelect.innerHTML = courseGroupSelect.innerHTML = courseSelect.innerHTML = "";
+      });
+
 
     semigroupSelect.addEventListener("change", async () => {
       const res = await fetch(`${BaseURL}/levels?group=${groupSelect.value}&semigroup=${semigroupSelect.value}`);
