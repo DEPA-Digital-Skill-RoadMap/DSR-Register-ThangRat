@@ -269,7 +269,8 @@
     let BaseURL = "http://localhost:3000/api";
     let CONFIG = "";
     let Authen_Token = "";
-    REQUIRE_OUT_FROM_THANGRAT=""
+    let REQUIRE_OUT_FROM_THANGRAT=""
+    let Global_DoB = ""
     init();
 
     // 🔹 เริ่มต้นโปรแกรม
@@ -332,13 +333,13 @@
       const data  = await res.json();
       REQUIRE_OUT_FROM_THANGRAT = data.result;
       console.log(data.result);
-      
+      Global_DoB = data.result.dateOfBirthString ? `${data.result.dateOfBirthString.slice(0,4)}-${data.result.dateOfBirthString.slice(4,6)}-${data.result.dateOfBirthString.slice(6,8)}` : '';
       document.getElementById('idcard').value = data.result.citizenId || '';
       document.getElementById('name').value = data.result.firstName || '';
       document.getElementById('surname').value = data.result.lastName || '';
       document.getElementById('email').value = data.result.email || '';
       document.getElementById('Numphone').value = data.result.mobile || '';
-      document.getElementById('Birth').value = data.result.dateOfBirthString || '';
+      document.getElementById('Birth').value = Global_DoB || '';
     }
     // fetch('https://mocki.io/v1/20ecb20d-6232-4f21-b244-2909e7ea6272')
     //   .then(res => res.json())
@@ -432,7 +433,7 @@
         surname: REQUIRE_OUT_FROM_THANGRAT.lastName,
         email: REQUIRE_OUT_FROM_THANGRAT.email,
         Numphone: REQUIRE_OUT_FROM_THANGRAT.mobile,
-        Birth: REQUIRE_OUT_FROM_THANGRAT.dateOfBirthString,
+        Birth: Global_DoB,
         gender: gender.value,
         province: province.value,
         IDCardlink: IDCardlink.value,
