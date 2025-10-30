@@ -96,22 +96,25 @@
   app.post("/api/saveSelection", async (req, res) => {
     let {
       idcard, name, surname, email, Numphone, Birth,
+      gender, province,
       group, semigroup, level, coursegroup, course,
       IDCardlink, Otherdoclink
     } = req.body;
-    try {
-      const [result] = await db.execute(
-        `INSERT INTO registor (idcard, firstname, lastname, email, numphone, birthdate, \`group\`, semigroup, level, coursegroup, courses, IDCardlink, Otherdoclink)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [idcard, name, surname, email, Numphone, Birth, group, semigroup, level, coursegroup, course, IDCardlink, Otherdoclink]
-      );
+  const timestamp = moment().tz("Asia/Bangkok").format("YYYY-MM-DD HH:mm:ss");
 
-      res.json({ success: true, message: "Saved successfully", id: result.insertId });
-    } catch (err) {
-      console.error("Database Error:", err);
-      res.status(500).json({ success: false, message: "Database error" });
-    }
-  });
+  try {
+    const [result] = await db.execute(
+      `INSERT INTO registor (IDcard, Name, Surname, Email, Numphone, birthdate, Province, sex, \`GroupName\`, Semigroup, Levelcourse, Coursegroup, Course, IDCardlink, OtherLink, Timestamp)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [idcard, name, surname, email, Numphone, Birth, province, gender, group, semigroup, level, coursegroup, course, IDCardlink, Otherdoclink, timestamp]
+    );
+
+    res.json({ success: true, message: "Saved successfully", id: result.insertId });
+  } catch (err) {
+    console.error("Database Error:", err);
+    res.status(500).json({ success: false, message: "Database error" });
+  }
+});
 
 
 
