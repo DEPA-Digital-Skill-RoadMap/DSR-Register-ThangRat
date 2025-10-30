@@ -42,27 +42,27 @@
 
         <div class="field">
           <label class="label">ชื่อ (First name)</label>
-          <input id="name" class="input" type="text" placeholder="สมชาย">
+          <input id="name" class="input" type="text" placeholder=" ">
         </div>
 
         <div class="field">
           <label class="label">นามสกุล (Last name)</label>
-          <input id="surname" class="input" type="text" placeholder="สมชาย">
+          <input id="surname" class="input" type="text" placeholder=" ">
         </div>
 
         <div class="field">
           <label class="label">อีเมล</label>
-          <input id="email" class="input" type="email" placeholder="e.g. alexsmith@gmail.com">
+          <input id="email" class="input" type="email" placeholder=" ">
         </div>
 
         <div class="field">
           <label class="label">เบอร์โทร</label>
-          <input id="Numphone" class="input" type="text" placeholder="08x-xxx-xxxx">
+          <input id="Numphone" class="input" type="text" placeholder=" ">
         </div>
 
         <div class="field">
           <label class="label">วันเดือนปีเกิด</label>
-          <input id="Birth" class="input" type="text" placeholder="20xx-xx-xx">
+          <input id="Birth" class="input" type="text" placeholder=" ">
         </div>
 
         
@@ -316,7 +316,7 @@
     }
     //call data 
     async function CallIdentity(CONFIG,Authen_Token){
-       const res = await fetch(`https://api.egov.go.th/ws/dga/czp/uat/v1/core/shield/data/deproc`,
+       const res = await fetch(`https://api.egov.go.th/ws/dga/czp/prod/v1/core/shield/data/deproc`,
         {
           method: "POST",
           headers:{
