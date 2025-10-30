@@ -104,7 +104,7 @@
 
   try {
     const [result] = await db.execute(
-      `INSERT INTO registor (IDcard, Name, Surname, Email, Numphone, birthdate, Province, sex, \`GroupName\`, Semigroup, Levelcourse, Coursegroup, Course, IDCardlink, OtherLink, Timestamp)
+      `INSERT INTO registrations (IDcard, Name, Surname, Email, Numphone, birthdate, Province, sex, \`GroupName\`, Semigroup, Levelcourse, Coursegroup, Course, IDCardlink, OtherLink, Timestamp)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [idcard, name, surname, email, Numphone, Birth, province, gender, group, semigroup, level, coursegroup, course, IDCardlink, Otherdoclink, timestamp]
     );
