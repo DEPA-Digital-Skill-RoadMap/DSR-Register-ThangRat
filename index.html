@@ -73,7 +73,6 @@
               <option value="">-- เลือกเพศ --</option>
               <option>ชาย</option>
               <option>หญิง</option>
-              <option>ไม่ระบุ</option>
             </select>
       </div>
 
@@ -256,12 +255,12 @@
 
       <!-- ข้อความหลัก -->
       <h6>โครงการได้รับใบสมัครของท่านแล้ว</h6>
-      <!-- <span>โปรดตรวจสอบข้อความใหม่ในอีเมล</span>
-      <span>หากยังไม่ได้รับ โปรดตรวจสอบใน Junk Mail หรือสมัครใหม่ภายใน 30 นาที</span> -->
+      <span>โปรดตรวจสอบข้อความใหม่ในอีเมล</span>
+      <span>หากยังไม่ได้รับ โปรดตรวจสอบใน Junk Mail หรือสมัครใหม่ภายใน 30 นาที</span>
 
       <!-- ลิงก์และปุ่ม -->
       <span>ติดตามข้อมูลข่าวสารได้ที่</span>
-      <a href="https://www.facebook.com/depathai" target="_blank">Facebook depa Thailand</a>
+      <a href="https://www.facebook.com/depathai" target="_blank">Facebook DEPATHAI</a>
 
       <button id="backBtn" class="button is-success is-light" style="margin-top:1rem;">กลับหน้าแรก</button>
     </div>
@@ -273,7 +272,8 @@
     let BaseURL = "http://localhost:3000/api";
     let CONFIG = "";
     let Authen_Token = "";
-    REQUIRE_OUT_FROM_THANGRAT=""
+    let REQUIRE_OUT_FROM_THANGRAT=""
+    let Global_DoB = ""
     init();
 
     // 🔹 เริ่มต้นโปรแกรม
@@ -335,14 +335,14 @@
       )
       const data  = await res.json();
       REQUIRE_OUT_FROM_THANGRAT = data.result;
-      let DateOfBirth_reMap = `${REQUIRE_OUT_FROM_THANGRAT.dateOfBirthString.slice(0, 4)}-${REQUIRE_OUT_FROM_THANGRAT.dateOfBirthString.slice(4, 6)}-${REQUIRE_OUT_FROM_THANGRAT.dateOfBirthString.slice(6, 8)}`  //yy-mm-dd
       console.log(data.result);
-      document.getElementById('idcard').value = REQUIRE_OUT_FROM_THANGRAT.citizenId || '';
-      document.getElementById('name').value = REQUIRE_OUT_FROM_THANGRAT.firstName || '';
-      document.getElementById('surname').value = REQUIRE_OUT_FROM_THANGRAT.lastName || '';
-      document.getElementById('email').value = REQUIRE_OUT_FROM_THANGRAT.email || '';
-      document.getElementById('Numphone').value = REQUIRE_OUT_FROM_THANGRAT.mobile || '';
-      document.getElementById('Birth').value = DateOfBirth_reMap || '';
+      Global_DoB = data.result.dateOfBirthString ? `${data.result.dateOfBirthString.slice(0,4)}-${data.result.dateOfBirthString.slice(4,6)}-${data.result.dateOfBirthString.slice(6,8)}` : '';
+      document.getElementById('idcard').value = data.result.citizenId || '';
+      document.getElementById('name').value = data.result.firstName || '';
+      document.getElementById('surname').value = data.result.lastName || '';
+      document.getElementById('email').value = data.result.email || '';
+      document.getElementById('Numphone').value = data.result.mobile || '';
+      document.getElementById('Birth').value = Global_DoB || '';
     }
     // fetch('https://mocki.io/v1/20ecb20d-6232-4f21-b244-2909e7ea6272')
     //   .then(res => res.json())
@@ -451,7 +451,7 @@
         surname: REQUIRE_OUT_FROM_THANGRAT.lastName,
         email: REQUIRE_OUT_FROM_THANGRAT.email,
         Numphone: REQUIRE_OUT_FROM_THANGRAT.mobile,
-        Birth: DateOfBirth_reMap,
+        Birth: Global_DoB,
         gender: gender.value,
         province: province.value,
         IDCardlink: IDCardlink.value,
@@ -502,7 +502,3 @@
   </script>
 </body>
 </html>
-
-<!-- HOW TO 101 (วิธีหา mToken , appID ): เอามาจาก postman โดยที่ทำถึงแค่ "02 MockData" -->
-<!-- HOW TO 102   (วิธีเข้าลิ้ง) (localhost): http://DOMAINNAME/index.html?appId=XXXXXX&mToken=XXXXXXXXX -->
-<!-- HOW TO 102.5 (วิธีเข้าลิ้ง) (domain/deployweb): http://DOMAIN/?appId=XXXXXX&mToken=XXXXXXXXX -->
