@@ -101,7 +101,7 @@
       IDCardlink, Otherdoclink
     } = req.body;
   const timestamp = moment().tz("Asia/Bangkok").format("YYYY-MM-DD HH:mm:ss");
-  let Age = moment(timestamp).diff(moment(birthDateString, "YYYY-MM-DD"), "years");
+  let Age = moment(timestamp).diff(moment(Birth, "YYYY-MM-DD"), "years");
   try {
     const [result] = await db.execute(
       `INSERT INTO registrations (IDcard, Name, Surname, Email, Numphone, birthdate, Province, sex, \`GroupName\`, Semigroup, Levelcourse, Coursegroup, Course, IDCardlink, OtherLink, Timestamp , Age )
