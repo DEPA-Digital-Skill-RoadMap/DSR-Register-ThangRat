@@ -98,15 +98,15 @@
       idcard, name, surname, email, Numphone, Birth,
       gender, province,
       group, semigroup, level, coursegroup, course,
-      IDCardlink, Otherdoclink
+      IDCardlink, Otherdoclink , Age
     } = req.body;
   const timestamp = moment().tz("Asia/Bangkok").format("YYYY-MM-DD HH:mm:ss");
-
+  Age = moment(timestamp).diff(moment(birthDateString, "YYYY-MM-DD"), "years");
   try {
     const [result] = await db.execute(
-      `INSERT INTO registrations (IDcard, Name, Surname, Email, Numphone, birthdate, Province, sex, \`GroupName\`, Semigroup, Levelcourse, Coursegroup, Course, IDCardlink, OtherLink, Timestamp)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [idcard, name, surname, email, Numphone, Birth, province, gender, group, semigroup, level, coursegroup, course, IDCardlink, Otherdoclink, timestamp]
+      `INSERT INTO registrations (IDcard, Name, Surname, Email, Numphone, birthdate, Province, sex, \`GroupName\`, Semigroup, Levelcourse, Coursegroup, Course, IDCardlink, OtherLink, Timestamp , Age )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?)`,
+      [idcard, name, surname, email, Numphone, Birth, province, gender, group, semigroup, level, coursegroup, course, IDCardlink, Otherdoclink, timestamp , Age]
     );
 
     res.json({ success: true, message: "Saved successfully", id: result.insertId });
